@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/icon.jpg" type="image/jpg">
+    <title>FormBridge</title>
+    <!-- إضافة مكتبة jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- إضافة مكتبة Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <style>
+
+     /* تعيين خصائص الصفحة الرئيسية */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden; /* إزالة شريط التمرير الأفقي */
+            overflow-y: hidden; /* إزالة شريط التمرير الأفقي */
+
+
+        }
+
+      /* خصائص الحاوية */
+.container {
+    width: 225px; /* ضبط عرض الحاوية */
+    height:400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 20px;
+
+}
+
+/* خصائص Select2 */
+.select2-container--default .select2-selection--single {
+    background-color: #222;
+    border: 2px solid #fff;
+    border-radius: 22px;
+    padding: 10px; /* الحفاظ على padding */
+    height: 40px; /* الحفاظ على الارتفاع */
+    color: #fff; /* لون النص */
+    font-weight: bold; /* جعل النص عريض */
+    width: 100%; /* اجعل العرض 100% ليتناسب مع الحقل */
+}
+
+/* خصائص الحقل المنسدل */
+.select2-container {
+    width: 100% !important; /* تملأ الحقل 100% */
+}
+
+/* لون النص في الخيارات */
+.select2-container--default .select2-results__option {
+    color: #fff; /* لون النص داخل الخيارات */
+    font-weight: bold; /* جعل النص داخل الخيارات عريض */
+}
+
+/* لون النص في الحقل الافتراضي */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #fff; /* لون النص في الحقل الافتراضي */
+    font-weight: bold; /* جعل النص في الحقل الافتراضي عريض */
+}
+
+/* لون الخلفية في الخيارات */
+.select2-container--default .select2-results__option {
+    background-color: #444; /* خلفية رمادية */
+    color: #fff; /* لون النص أبيض */
+    font-weight: bold; /* جعل النص عريض */
+}
+
+/* لون الخلفية عند تمرير الماوس على الخيار */
+.select2-container--default .select2-results__option--highlighted {
+    background-color: #666; /* لون خلفية رمادية داكنة عند التمرير */
+}
+
+/* تنسيق النص */
+.container h3 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* النص "To:" */
+.to-label {
+    color: white;
+    margin: 5px 0; /* تقليل الهامش */
+    font-weight: bold; /* نص عريض */
+}
+
+/* خاصية الأيقونات */
+.currency-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 5px; /* هامش بين الأيقونة والنص */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 40px; /* الحفاظ على الارتفاع */
+    width: 40px; /* الحفاظ على العرض */
+    top: 50%; /* لتوسيط السهم عمودياً */
+    margin-top: -12px; /* لتعديل موقع السهم عمودياً */
+    border-left: none; /* إزالة الحدود الجانبية */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow:after {
+    content: "➤"; /* استخدام السهم المرغوب */
+    font-size: 24px; /* حجم السهم */
+    color: white; /* لون السهم */
+    display: inline-block;
+    transform: rotate(90deg); /* لتدوير السهم لأسفل */
+}
+
+/* خصائص الصورة */
+.header-image {
+    width: 100%;
+    height: 100px;
+    border: none; /* إزالة الإطار */
+    margin-top: -20px; /* رفع الصورة لأعلى */
+    margin-bottom: 5px; /* إضافة هامش أسفل الصورة */
+    border-radius: 15px;
+}
+
+.exchangeButton {
+    display: block; /* يجعل الزر في سطر جديد */
+    margin: 25px auto 0; /* إضافة هامش علوي بمقدار 10 بكسل */
+    background-color: #800080; /* لون الخلفية */
+    color: white; /* لون النص */
+    border: none; /* إزالة الحدود */
+    border-radius: 20px; /* جعل الزوايا دائرية */
+    width: 80%; /* تعيين عرض الزر ليملأ الحاوية */
+    height: auto;
+    padding: 10px; /* إضافة حشوة */
+    cursor: pointer; /* تغيير شكل المؤشر عند المرور فوق الزر */
+    font-size: 16px; /* حجم النص */
+    border: 2px solid #fff;
+    transition: transform 0.3s, background-color 0.3s; /* إضافة تأثير الانتقال */
+}
+
+.exchangeButton:hover {
+    transform: scale(1.1); /* تكبير الزر عند التمرير */
+    background-color: purple; /* تغيير اللون إلى بنفسجي عند التمرير */
+}
+
+/* خاصية للأنماط في الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column; /* تغيير اتجاه العناصر إلى عمودي */
+        width: 100%; /* اجعل عرض الحاوية 100% */
+    }
+
+    .nav-item a {
+        padding: 10px 0; /* ضبط padding ليكون متناسبًا مع الشكل العمودي */
+    }
+}
+
+/* تحسين نمط الحقول على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .form-group {
+        width: 100%; /* اجعل عرض الحقول 100% */
+    }
+}
+
+
+
+    </style>
+</head>
+<body>
+
+        <!-- الحاوية في المنتصف -->
+    <div class="container">
+
+        <!-- الحقل الأول -->
+<!-- الحقل الأول -->
+<select id="select1" style="margin-bottom: 10px;">
+    <option value="SOL" selected>SOL <img src="https://trocador.app/static/img/icons/sol.svg" class="currency-icon" alt="SOL"></option>
+    <option value="BTC">BTC <img src="https://trocador.app/static/img/icons/btc.svg" class="currency-icon" alt="BTC"></option>
+    <option value="ETH">ETH <img src="https://trocador.app/static/img/icons/eth.svg" class="currency-icon" alt="ETH"></option>
+    <option value="TRX">TRX <img src="https://trocador.app/static/img/icons/trx.svg" class="currency-icon" alt="TRX"></option>
+    <option value="TON">TON <img src="https://trocador.app/static/img/icons/ton.svg" class="currency-icon" alt="TON"></option>
+        <option value="USDTTRC">USDT (TRC20) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"> <img src="https://trocador.app/static/img/icons/trx.svg" class="currency-icon-small" alt="TRC20"></option>
+    <option value="USDTSOL">USDT (SOL) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"> <img src="https://trocador.app/static/img/icons/sol.svg" class="currency-icon-small" alt="SOL"></option>
+    <option value="USDT">USDT (ETH) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"> <img src="https://trocador.app/static/img/icons/eth.svg" class="currency-icon-small" alt="ETH"></option>
+</select>
+
+        <!-- النص "To:" -->
+        <div class="to-label">To:</div>
+
+
+        <!-- الحقل الثاني -->
+<!-- الحقل الثاني -->
+<select id="select2" style="margin-bottom: 10px;">
+    <option value="TRX" selected>TRX <img src="https://trocador.app/static/img/icons/trx.svg" class="currency-icon" alt="TRX"></option>
+    <option value="BTC">BTC <img src="https://trocador.app/static/img/icons/btc.svg" class="currency-icon" alt="BTC"></option>
+    <option value="ETH">ETH <img src="https://trocador.app/static/img/icons/eth.svg" class="currency-icon" alt="ETH"></option>
+    <option value="SOL">SOL <img src="https://trocador.app/static/img/icons/sol.svg" class="currency-icon" alt="SOL"></option>
+    <option value="TON">TON <img src="https://trocador.app/static/img/icons/ton.svg" class="currency-icon" alt="TON"></option>
+        <option value="USDTTRC">USDT (TRC20) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"> <img src="https://trocador.app/static/img/icons/trx.svg" class="currency-icon-small" alt="TRC20"></option>
+    <option value="USDTSOL">USDT (SOL) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"> <img src="https://trocador.app/static/img/icons/sol.svg" class="currency-icon-small" alt="SOL"></option>
+    <option value="USDT">USDT (ETH) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"> <img src="https://trocador.app/static/img/icons/eth.svg" class="currency-icon-small" alt="ETH"></option>
+</select>
+<!-- إضافة زر Exchange -->
+<button id="exchangeButton" class="exchangeButton">
+    Exchange
+</button>
+
+    </div>
+
+
+<script>
+    $(document).ready(function() {
+        // إعداد Select2 للحقلين
+        $('#select1').select2({
+            minimumResultsForSearch: Infinity, // لإخفاء مربع البحث
+            templateResult: formatState,
+            templateSelection: formatState, // استخدم نفس الدالة لعرض الأيقونة مع النص عند الاختيار
+            width: '100%'
+        });
+
+        $('#select2').select2({
+            minimumResultsForSearch: Infinity, // لإخفاء مربع البحث
+            templateResult: formatState,
+            templateSelection: formatState, // استخدم نفس الدالة لعرض الأيقونة مع النص عند الاختيار
+            width: '100%'
+        });
+
+        // إضافة زر Exchange مع حدث النقر
+        $('#exchangeButton').click(function() {
+            // الحصول على العملات المختارة
+            var fromCurrency = $('#select1').val();
+            var toCurrency = $('#select2').val();
+
+            // إزالة الأقواس من أسماء العملات المركبة
+            fromCurrency = fromCurrency.replace(/[^A-Z]/g, ''); // حذف أي رموز غير الأحرف الكبيرة
+            toCurrency = toCurrency.replace(/[^A-Z]/g, ''); // حذف أي رموز غير الأحرف الكبيرة
+
+            // بناء الرابط
+            var link = "https://ff.io/" + fromCurrency + "/" + toCurrency + "/?ref=1rtgm21c";
+
+            // فتح الرابط في نافذة جديدة
+            window.open(link, '_blank'); // تغيير هنا لفتح الرابط في نافذة جديدة
+        });
+    });
+
+    // تنسيق عرض الأيقونات داخل Select2
+    function formatState(option) {
+        if (!option.id) {
+            return option.text; // إذا لم يكن هناك معرف، عرض النص فقط
+        }
+
+        var text = option.text; // نص الخيار
+        var $option = $('<span></span>'); // إنشاء عنصر HTML جديد
+
+        // البحث عن الأيقونات المرتبطة بالنص
+        if (text.includes("(TRC20)")) {
+            $option.append('<img class="currency-icon" src="https://trocador.app/static/img/icons/usdt.svg" alt="USDT">');
+            $option.append('<img class="currency-icon" src="https://trocador.app/static/img/icons/trx.svg" alt="TRC20">');
+        } else if (text.includes("(SOL)")) {
+            $option.append('<img class="currency-icon" src="https://trocador.app/static/img/icons/usdt.svg" alt="USDT">');
+            $option.append('<img class="currency-icon" src="https://trocador.app/static/img/icons/sol.svg" alt="SOL">');
+        } else if (text.includes("(ETH)")) {
+            $option.append('<img class="currency-icon" src="https://trocador.app/static/img/icons/usdt.svg" alt="USDT">');
+            $option.append('<img class="currency-icon" src="https://trocador.app/static/img/icons/eth.svg" alt="ETH">');
+        } else {
+            // إضافة أيقونة واحدة للخيار العادي
+            $option.append('<img class="currency-icon" src="https://trocador.app/static/img/icons/' + option.element.value.toLowerCase() + '.svg" alt="' + option.text + '">');
+        }
+
+        $option.append(' ' + text); // إضافة النص بعد الأيقونات
+        return $option; // إرجاع العنصر الجديد
+    }
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/icon.jpg" type="image/jpg">
+    <title>جسر الكريبتو | Bridge crypto</title>
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SBNKRGSE0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9SBNKRGSE0');
+</script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: radial-gradient(circle, #5e2b7d 40%, #000000 100%);
+            color: white;
+            direction: rtl; /* تغيير اتجاه النص */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        @media (max-width: 740px) {
+            .button-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+        }
+
+        .nav-item a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .separator {
+            margin: 0 10px;
+            color: white;
+        }
+
+        .logo {
+            display: block;
+            margin: 20px auto;
+            width: 300px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            direction: rtl; /* تغيير اتجاه النص */
+        }
+
+        .content {
+            width: 50%;
+            text-align: right; /* محاذاة النص لليمين */
+        }
+
+        .content h2 {
+            font-size: 28px;
+            color: #ffcc00;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: white;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .image-container {
+            width: 45%;
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .buy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: colorChange 2s infinite;
+            margin-top: 20px;
+        }
+
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            filter: blur(20px);
+            z-index: -1;
+        }
+
+        @keyframes glowing {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes colorChange {
+            0%, 100% {
+                border-color: white;
+            }
+            50% {
+                border-color: #ffcc00;
+            }
+        }
+
+        .buy-button:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content {
+                width: 100%;
+            }
+
+            .image-container {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+
+        .virtual-mastercard-section, .bridge-crypto-section, .giftcards-section {
+            margin-top: 50px;
+        }
+
+        .icon-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            pointer-events: none;
+            animation: float 6s infinite;
+        }
+
+        .icon-container img {
+            width: 50px;
+            margin: 5px;
+            animation: move 10s infinite alternate;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-10px);
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            100% {
+                transform: translateX(calc(-50% + 20px)) translateY(calc(-50% + 20px));
+            }
+        }
+
+        .answer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 1366px) {
+            .virtual-image {
+                display: none;
+            }
+
+            .image-container {
+                position: relative;
+                height: 325px;
+            }
+
+            iframe {
+                height: 100%;
+            }
+        }
+
+        @media (max-width: 1366px) {
+            .virtual-image {
+                display: none;
+            }
+
+            .image-container {
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                height: 400px;
+                margin: 0 auto;
+            }
+
+            iframe {
+                width: 100%;
+                height: calc(100% - 15px);
+                margin-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <span class="nav-item"><a href="https://cryptolike.store/">الصفحة الرئيسية</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/buyusdt">شراء USDT</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/virtualmastercard">بطاقة ماستر كارد الافتراضية</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/bridge">جسر الكريبتو</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/giftcards">بطاقة الهدايا</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/contactus">اتصل بنا</a></span>
+    </div>
+       
+<!-- New Virtual MasterCard Section -->
+<div class="virtual-mastercard-section">
+    <div class="content-wrapper">
+        <div class="content">
+            <h2>يمكنك التبادل مع المزود | Trocador</h2>
+                <p>تبادل العملات الرقمية بشكل خاص <br>قم بتحويل العملات الرقمية بين الشبكات  , سريع . امن , سهل</p>
+                <p>1. اختر العملة التي تريد إرسالها.</p>
+                <p>2. أدخل المبلغ الذي ترغب في إرساله.</p>
+                <p>3. اضغط على زر التبادل وأدخل عنوان المحفظة التي تريد إرسال الأموال إليها.</p>
+                <p>4. بعد تحويلك إلى صفحة الدفع، تابع عملية الدفع. بمجرد الانتهاء، يتم تحويل أصولك الرقمية إلى عنوانك.</p>
+                
+
+
+        </div>
+        <div class="image-container" style="position: relative; width: 100%; height: 400px;">
+            <iframe src="https://trocador.app/widget/?ref=CADyW717Hs" width="100%" height="150%" scrolling="no" style="position: absolute; top: 20; left: 0; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+<style>
+   @media (max-width: 768px) {
+    .image-container {
+        height: 300px; /* تحديد ارتفاع مناسب للجوال */
+    }
+}
+
+@media (min-width: 769px) {
+    .image-container {
+        height: 500px; /* تحديد ارتفاع أكبر للحاسوب */
+    }
+}
+
+</style>
+    
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <h2> متجر كريبتو لايك Cryptolike.store| Bridge Crypto</h2>
+            <p>
+                1- ما هو تبادل العملات عبر الشبكات المختلفة؟ <br>
+                <span class="answer">يتيح تبادل العملات عبر الشبكات المختلفة للمستخدمين تبديل العملات الرقمية بين شبكات بلوكتشين مختلفة . على سبيل المثال، يمكنك تحويل USDT من شبكة Ethereum إلى شبكة TRX.</span>
+            </p>
+            <p>
+                2- كيف يمكنني التحقق من مصداقية مقدمي الخدمات على موقعكم؟ <br>
+                <span class="answer">نقوم بتقييم مقدمي الخدمة بناءً على معايير صارمة تشمل الأمان، السرعة، الرسوم المعقولة، والتعليقات من المستخدمين السابقين. نحن نتأكد من عرض فقط مقدمي الخدمة الأكثر موثوقية وشفافية في السوق على موقعنا.</span>
+            </p>
+            <p>
+                3- هل يمكنني تتبع حالة التبادل؟ <br>
+                <span class="answer">نعم، معظم المنصات التي نوصي بها تقدم أدوات لتتبع حالة التبادل في الوقت الفعلي باستخدام معرّف الطلب.</span>
+            </p>
+            <p>
+                4- هل يتقاضى موقع cryptolike.store أي رسوم من المستخدمين؟ <br>
+                <span class="answer">لا، نحن لا نتقاضى أي رسوم من المستخدمين. منصتنا مجانية تمامًا للاستخدام. الرسوم التي نحصل عليها تأتي من برنامج الشراكة مع مقدمي خدمات التبادل. وهذا يتيح لنا تقديم الخدمة دون تحميل المستخدمين أي تكاليف إضافية.</span>
+            </p>
+            <p>
+                5- لماذا يمكنني الوثوق بك؟ <br>
+                <span class="answer">لا حاجة للتسجيل ولا لمشاركة تفاصيلك الشخصية. نحن لا نحتفظ بأموالك؛ كل عمليات التبادل تتم على الفور وبطريقة تلقائية تمامًا.</span>
+            </p>
+        </div>
+    
+        <div class="image-container">
+            <img src="https://github.com/Baraaib/USDT/blob/master/images/bridge.jpg?raw=true" alt="اشترِ بطاقة ماستر كارد افتراضية بالعملات الرقمية، اشترِ بطاقات هدايا، استخدم عملاتك الافتراضية بحرية.">
+        </div>
+    </div>
+</body>
+</html>
+
+    
+
+
+ 
+
+
+
+  
+ <!-- Footer Section -->
+<footer style="background-color: #333; color: white; padding: 20px 0; text-align: center; margin-top: 50px;">
+    <div style="margin-bottom: 10px; font-size: 18px; font-weight: bold;">
+        © 2024 Cryptolike.Store
+    </div>
+    <p style="font-size: 16px; color: white; margin-bottom: 15px;">
+        نحن هنا لخدمتك! إذا كان لديك أي استفسار أو تحتاج إلى دعم، لا تتردد في <strong>التواصل معنا</strong>. فريقنا جاهز دائمًا لمساعدتك وتقديم أفضل الحلول.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 15px; align-items: center;">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/yourwhatsapplink" target="_blank" style="color: white; text-decoration: none;">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="width: 32px; height: 32px;">
+        </a>
+        <!-- Telegram -->
+        <a href="https://t.me/cryptolike_store" target="_blank" style="color: white; text-decoration: none;">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" style="width: 32px; height: 32px;">
+        </a>
+        <!-- Twitter -->
+        <a href="https://x.com/Cryptolike18689" target="_blank" style="color: white; text-decoration: none;">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" style="width: 32px; height: 32px;">
+        </a>
+    </div>
+    <p style="font-size: 14px; color: #ddd; margin-top: 20px;">
+        جميع حقوق النشر محفوظة لـ Cryptolike.Store. نحن ملتزمون بتقديم أفضل تجربة للمستخدم مع أعلى معايير الأمان.
+    </p>
+</footer>
+
+</body>
+</html>
+

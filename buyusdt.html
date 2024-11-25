@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شراء USDT | متجر كريبتو لايك</title>
+
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SBNKRGSE0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9SBNKRGSE0');
+</script>
+
+    <style>
+   /* تنسيق الصفحة بشكل عام */
+body {
+    background-color: black;
+    color: black; /* لضمان ظهور النصوص */
+    font-family: Arial, sans-serif; /* تعيين نوع الخط */
+}
+
+/* تنسيق الأزرار في الواجهة */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex-direction: row-reverse; /* تعديل هذا السطر لجعل الأزرار تبدأ من اليمين */
+}
+
+@media (max-width: 480px) {
+    .button-container {
+        flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+        align-items: stretch; /* تمديد الأزرار لملء العرض */
+    }
+
+    .button-container a {
+        text-align: center; /* ضبط النص ليكون في المنتصف */
+        margin: 5px 0; /* إضافة مسافة بين الأزرار */
+    }
+}
+
+/* تنسيق العناصر في شريط التنقل */
+.nav-item a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.nav-item a:hover {
+    background-color: black;
+    color: white;
+}
+
+.separator {
+    margin: 0 10px;
+    color: white;
+}
+
+/* تنسيق الشبكة لعرض البطاقات */
+.giftcards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px;
+}
+
+.giftcard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer; /* تغيير المؤشر إلى يد */
+}
+
+.giftcard img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.giftcard:hover {
+    transform: scale(1.05);
+}
+
+/* تنسيق النافذة المنبثقة */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content-container {
+    background: white;
+    width: 50%;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    max-height: 80vh; /* أقصى ارتفاع للنافذة لتجنب تجاوز المحتوى */
+    overflow-y: auto; /* السماح بالتمرير العمودي إذا تجاوز المحتوى */
+}
+
+.popup-left,
+.popup-right {
+    flex: 1;
+}
+
+.popup-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: right; /* محاذاة النصوص إلى اليمين */
+    direction: rtl; /* اتجاه النصوص العربية من اليمين لليسار */
+}
+
+.popup-right span.english-text {
+    direction: ltr; /* اتجاه النصوص الإنجليزية من اليسار لليمين */
+    text-align: left; /* محاذاة النصوص إلى اليسار */
+}
+
+.popup-close {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    align-self: flex-end;
+}
+
+.popup-close:hover {
+    background: #d32f2f;
+}
+
+.popup-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px; /* إضافة مسافة أسفل الصورة */
+}
+
+/* تحسين زر الشراء */
+.purchase-button {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.purchase-button:hover {
+    background: #388e3c;
+}
+
+/* إعدادات الشبكة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .giftcards-grid {
+        grid-template-columns: repeat(2, 1fr); /* عمودان للشاشات المتوسطة */
+    }
+}
+
+@media (max-width: 480px) {
+    .giftcards-grid {
+        grid-template-columns: 1fr; /* عمود واحد للشاشات الصغيرة جدًا */
+    }
+
+    .popup-content-container {
+        width: 90%; /* تصغير عرض النافذة المنبثقة للشاشات الصغيرة */
+        padding: 10px; /* تقليل المسافات الداخلية */
+    }
+
+    .popup-left,
+    .popup-right {
+        flex: 1;
+        padding: 5px;
+    }
+
+    .popup-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px; /* إضافة مسافة أسفل الصورة */
+    }
+
+    .popup-close {
+        align-self: flex-start; /* تعديل موقع زر الإغلاق */
+    }
+
+    .popup-right {
+        text-align: right;
+        direction: rtl;
+    }
+
+    .purchase-button {
+        font-size: 16px;
+        padding: 12px;
+        width: 100%; /* جعل زر الشراء يتمدد بالكامل */
+    }
+}
+/* تنسيق الحاوية الرئيسية للأسئلة */
+.faq-container {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* تنسيق عنوان الأسئلة الشائعة */
+.faq-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* تنسيق كل عنصر من عناصر الأسئلة */
+.faq-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.faq-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* تنسيق السؤال نفسه */
+.faq-item strong {
+    font-size: 18px;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* تنسيق الإجابة */
+.faq-answer {
+    display: none; /* إخفاء الإجابة بشكل افتراضي */
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* التأثير عند فتح الإجابة */
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+/* تنسيق الرابط داخل الإجابة */
+.faq-answer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.faq-answer a:hover {
+    text-decoration: underline;
+}
+/* تنسيق القسم "كيف تعمل؟" */
+.how-it-works {
+    background-color: #000000;
+    padding: 40px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.how-it-works h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    direction: rtl; /* ترتيب العناصر من اليمين لليسار */
+}
+
+.step-box {
+    background-color: #fffefe; /* خلفية رمادية */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: right; /* محاذاة النصوص لليمين */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-box h3 {
+    font-size: 20px;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.step-box p {
+    font-size: 14px;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .steps-container {
+        grid-template-columns: repeat(2, 1fr); /* عمودان للشاشات المتوسطة */
+    }
+}
+
+@media (max-width: 480px) {
+    .steps-container {
+        grid-template-columns: 1fr; /* عمود واحد للشاشات الصغيرة */
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <span class="nav-item"><a href="https://cryptolike.store/">الصفحة الرئيسية</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/buyusdt">شراء USDT</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/virtualmastercard">بطاقة ماستر كارد الافتراضية</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/bridge">جسر الكريبتو</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/giftcards">بطاقة الهدايا</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://cryptolike.store/contactus">اتصل بنا</a></span>
+    </div>
+
+    <!-- شبكة البطاقات -->
+    <div class="giftcards-grid" id="giftcards-container"></div>
+
+    <!-- النافذة المنبثقة -->
+    <div class="popup">
+        <div class="popup-content-container">
+            <button class="popup-close">Close</button>
+            <!-- القسم الأيسر -->
+            <div class="popup-left">
+                <img id="popup-image" class="popup-image" src="" alt="Card Image">
+            </div>
+            <!-- القسم الأيمن -->
+            <div class="popup-right">
+                <div>
+                    <h2 id="popup-title"></h2>
+                    <p id="popup-category"></p>
+                    <p id="popup-description"></p>
+                    <p id="popup-how-to-use"></p>
+                    <p id="popup-product-id"></p>
+                    <p id="popup-price"></p> <!-- سيتم عرض السعر هنا -->
+                </div>
+                <button class="purchase-button" id="purchase-button">Buy now</button>
+            </div>
+        </div>
+    </div>
+  <!-- كيف تعمل؟ -->
+<div class="how-it-works">
+    <h2>كيف تعمل</h2>
+    <div class="steps-container">
+        <div class="step-box">
+            <h3>1</h3>
+            <p>اختر البطاقة التي تناسب احتياجك، بعد الاطلاع على معلومات البطاقة تقدم بطلب شراء الآن، سيتم تحويلك إلى صفحة إكمال الطلب، ضع البريد الإلكتروني واختر طريقة الدفع التي تناسبك.</p>
+        </div>
+        <div class="step-box">
+            <h3>2</h3>
+            <p>أكمل الدفع بإرسال المبلغ الدقيق بالعملة الرقمية التي اخترتها. تأكد من إرسالها على الشبكة الصحيحة.</p>
+        </div>
+        <div class="step-box">
+            <h3>3</h3>
+            <p>بعد تأكيد الدفع، ستتلقى بريدًا إلكترونيًا يحتوي على رابط تفعيل البطاقة ورمز الاسترداد. تحقق من مجلد 'البريد العشوائي' إذا لزم الأمر. يرجى العلم أن البريد قد يستغرق بضع ساعات ليتم إرساله، حيث يعتمد على مزود البطاقة.</p>
+        </div>
+    </div>
+</div>
+
+<div class="faq-container">
+    <div class="faq-title">الأسئلة الشائعة حول بطاقات الدفع المسبق</div>
+    <div class="faq-item" onclick="toggleAnswer(this)">
+        <strong>ما هي الدول المحظورة؟</strong>
+        <div class="faq-answer">
+            لا يمكنك استخدام بطاقاتنا إذا كنت من دولة محظورة أو مفروضة عليها عقوبات (روسيا، كوبا، فنزويلا، إلخ). يمكنك الاطلاع على القائمة الكاملة لكل مزود بطاقة عبر الرابط التالي:<br>
+            <a href="https://cryptolike.store/mastercard/Countries">قائمة الدول المحظورة/المسموح بها من قبل المزود 🔗</a>
+        </div>
+    </div>
+    <div class="faq-item" onclick="toggleAnswer(this)">
+        <strong>أين يتم قبول هذه البطاقات؟ وأين لا يتم قبولها؟</strong>
+        <div class="faq-answer">
+            بطاقاتنا المدفوعة مسبقًا هي إما ماستر كارد أو فيزا. عادة ما يمكن استيرادها إلى SamsungPay أو GooglePay أو ApplePay وتقبل في معظم المتاجر الإلكترونية. يمكن استخدامها لتسديد المدفوعات سواء عبر الإنترنت أو في المحلات التجارية باستخدام الدفع عبر الهاتف المحمول. ومع ذلك، فإن بعض مواقع التجارة الإلكترونية، مثل Netflix أو iTunes، قد ترفض هذه البطاقات إذا كان لديهم إشراف إضافي على بطاقات الدفع. تأكد دائمًا من مزود البطاقة لمعرفة ما إذا كانت البطاقة ستعمل على مواقع محددة.
+        </div>
+    </div>
+    <div class="faq-item" onclick="toggleAnswer(this)">
+        <strong>هل يمكنني إرسال الأموال من هذه البطاقة إلى حساب بنكي؟</strong>
+        <div class="faq-answer">
+            غالبًا ما يتم قبول هذه البطاقات في البنوك الإلكترونية، ولكن نظرًا لوجود مزودات متعددة لهذه البطاقة، قد يختلف هذا من حالة إلى أخرى. تأكد من أنك على علم بسياسات مزودك المحدد. اقرأ دائمًا الأسئلة الشائعة لمزود البطاقة.
+        </div>
+    </div>
+</div>
+
+    <script>
+        let giftCardsData = [];
+
+        // دالة لجلب بيانات بطاقات الهدايا
+        function fetchGiftCards(filePath) {
+            fetch(filePath)
+                .then(response => response.json())
+                .then(giftCards => {
+                    giftCardsData = giftCards;
+                    displayGiftCards(giftCardsData);
+                })
+                .catch(error => console.error('Error fetching gift card data:', error));
+        }
+
+        // تحميل البطاقات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchGiftCards('https://cryptolike.store/tcards/tcards.json');
+        });
+
+        // دالة لعرض البطاقات
+        function displayGiftCards(cards) {
+            const container = document.getElementById('giftcards-container');
+            container.innerHTML = ''; // إعادة تعيين المحتوى
+            cards.forEach(card => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'giftcard';
+                cardDiv.innerHTML = `<img src="${card.card_image_url}" alt="${card.name}" class="card-image">`;
+                container.appendChild(cardDiv);
+
+                // حدث النقر على البطاقة
+                cardDiv.addEventListener('click', function() {
+                    showPopup(card);
+                });
+            });
+        }
+
+        function showPopup(card) {
+    console.log(card); // لمراقبة الكائن الذي يتم تمريره
+
+    document.getElementById('popup-title').innerText = `الاسم: ${card.name}`;
+    document.getElementById('popup-category').innerText = `الفئة: ${card.category}`;
+    document.getElementById('popup-description').innerText = `الوصف: ${card.description}`;
+    document.getElementById('popup-how-to-use').innerText = `كيفية الاستخدام: ${card.how_to_use}`;
+    document.getElementById('popup-product-id').innerText = `رقم المنتج: ${card.product_id}`;
+    document.getElementById('popup-image').src = card.card_image_url;
+
+    // تحقق من وجود السعر الإجمالي في الكائن
+    const totalPrice = card.total_price ? card.total_price : "السعر غير متاح";
+    document.getElementById('popup-price').innerText = `السعر الإجمالي: ${totalPrice}`;
+
+    const purchaseButton = document.getElementById('purchase-button');
+    purchaseButton.onclick = function () {
+        alert(`تم طلب شراء البطاقة: ${card.name}`);
+    };
+
+            // إظهار النافذة المنبثقة
+            const popup = document.querySelector('.popup');
+            popup.style.display = 'flex';
+        }
+
+        // دالة إغلاق النافذة المنبثقة
+        document.querySelector('.popup-close').addEventListener('click', function() {
+            const popup = document.querySelector('.popup');
+            popup.style.display = 'none';
+        });
+
+                // دالة للتبديل بين إظهار وإخفاء الإجابة
+function toggleAnswer(element) {
+    const answer = element.querySelector('.faq-answer');
+    element.classList.toggle('active'); // إضافة أو إزالة الفئة "active" لفتح أو إغلاق الإجابة
+}
+    </script>
+</body>
+</html>

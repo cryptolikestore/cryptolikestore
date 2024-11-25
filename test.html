@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Available Numbers</title>
+    <script>
+        // دالة لتحميل الأرقام المتاحة من API
+        function fetchNumbers() {
+            var apiKey = '65bfc34f83d929dc0f293A08A0169e1b'; // ضع مفتاح الـ API هنا
+            var country = 0; // اختر الدولة (0 = روسيا)
+            var operator = 'any'; // اختر المشغل (مثال: megaFon)
+
+            // بناء الرابط مع المعلمات
+            var url = `https://api.sms-activate.guru/stubs/handler_api.php?api_key=${apiKey}&action=getNumbersStatus&country=${country}&operator=${operator}`;
+
+            // إرسال الطلب باستخدام Fetch API
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // عرض النتيجة في القائمة
+                    displayNumbers(data);
+                })
+                .catch(error => {
+                    document.getElementById("result").innerHTML = "Error connecting to the API.";
+                });
+        }
+
+        // دالة لعرض الأرقام المتاحة في واجهة المستخدم
+        function displayNumbers(data) {
+            var numberList = document.getElementById("numberList");
+            numberList.innerHTML = ''; // إعادة تعيين القائمة
+
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    // إنشاء عنصر جديد لكل مشغل مع العدد المتاح من الأرقام
+                    var listItem = document.createElement("li");
+                    listItem.textContent = `Operator: ${key} - Available Numbers: ${data[key]}`;
+                    numberList.appendChild(listItem);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Choose Available Numbers</h1>
+    <button onclick="fetchNumbers()">Fetch Available Numbers</button>
+
+    <ul id="numberList">
+        <!-- سيتم عرض الأرقام المتاحة هنا -->
+    </ul>
+
+    <pre id="result"></pre>
+
+</body>
+</html>

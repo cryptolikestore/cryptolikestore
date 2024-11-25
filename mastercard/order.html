@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الطلب</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input[type="email"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .hidden-fields {
+            display: none;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .button-container input {
+            width: 50%;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            padding: 10px;
+        }
+        
+        /* دائرة التحميل */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loading-content {
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>إتمام الطلب</h2>
+        
+        <!-- Form to submit the order -->
+        <form id="order-form">
+            <!-- Hidden fields -->
+            <div class="hidden-fields">
+                <input type="hidden" name="provider" value="MyPrepaidCenter">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="hidden" id="amount" name="amount" value="">
+                <input type="hidden" id="currency" name="currency" value="">
+            </div>
+
+            <!-- Visible Fields -->
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="email" required placeholder="ضع بريدك الالكتروني هنا الذي سيتم ارسال تفاصيل البطاقه اليه">
+            </div>
+            
+            <div class="form-group">
+                <label for="ticker_from">طريقة الدفع:</label>
+                <select id="ticker_from" name="ticker_from">
+                    <option value="USDT(SOL)">USDT (SOL)</option>
+                    <option value="USDT(TRC20)">USDT (TRC20)</option>
+                    <option value="USDT(BEP20)">USDT (BEP20)</option>
+                    <option value="USDT(TON)">USDT (TON)</option>
+                    <option value="SOL">SOL (Mainnet)</option>
+                    <option value="TRX">TRX (Mainnet)</option>
+                    <option value="ETH">ETH (Mainnet)</option>
+                    <option value="BTC">BTC (Mainnet)</option>
+                    <option value="TON">TON (Mainnet)</option>
+                </select>
+            </div>
+
+            <div class="button-container">
+                <input type="submit" value="إتمام الطلب">
+            </div>
+        </form>
+    </div>
+       <!-- زر الرجوع -->
+       <div class="back-button-container">
+        <button onclick="goBack()">رجوع</button>
+    </div>
+</div>
+    <!-- دائرة التحميل -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p id="loading-message">يتم معالجة الطلب... سيتم تحويلك إلى صفحة الدفع قريبًا.</p>
+        </div>
+    </div>
+
+    <script>
+        // استخراج المعلمات من الرابط في صفحة البطاقات
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = urlParams.get('amount');
+        const currency = urlParams.get('currency');
+        const provider = "MyPrepaidCenter"; // ثابت
+        const currencyCode = "USD"; // ثابت
+    
+        // تعيين المعلمات المخفية في النموذج بناءً على القيم التي تم إرسالها من صفحة البطاقات
+        document.getElementById('amount').value = amount;
+        document.getElementById('currency').value = currency;
+
+        // دالة لإظهار دائرة التحميل
+        function showLoadingScreen() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'flex';  // إظهار دائرة التحميل
+        }
+
+        // دالة لإرسال الطلب إلى الخادم الوسيط عند الضغط على زر "إتمام الطلب"
+        function submitOrder(event) {
+            event.preventDefault();  // منع الإرسال التقليدي للنموذج
+
+            // إظهار دائرة التحميل فورًا عند الضغط على الزر
+            showLoadingScreen();
+
+            const email = document.getElementById('email').value;
+            const tickerFrom = document.getElementById('ticker_from').value;
+
+            // تقسيم ticker_from إلى ticker_from و network_from
+            const [ticker, network] = tickerFrom.split('(');
+            const networkFrom = network.replace(')', '');  // إزالة القوسين
+
+            // بناء معلمات الطلب (query string)
+            const queryString = new URLSearchParams({
+                provider: provider,
+                currency_code: currencyCode,
+                amount: amount,
+                currency: currency,
+                ticker_from: ticker,
+                network_from: networkFrom,
+                email: email
+            }).toString();
+    
+            // إرسال الطلب إلى الخادم الوسيط
+            fetch(`https://proxy-server-t4bd.onrender.com/api/order_prepaidcard?${queryString}`, {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                // بعد الحصول على الاستجابة من الخادم
+                if (data.trade_id) {
+                    // تحويل المستخدم إلى صفحة الدفع باستخدام trade_id مباشرة بعد الاستجابة
+                    window.location.href = `https://trocador.app/prepaidcards/checkout/${data.trade_id}`;
+                } else {
+                    // في حالة عدم وجود trade_id أو حدوث خطأ
+                    alert('حدث خطأ في معالجة الطلب.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during order submission:', error);
+                alert('حدث خطأ في إرسال الطلب.');
+            });
+        }
+    
+        // ربط دالة إرسال الطلب مع زر الإرسال
+        document.getElementById('order-form').addEventListener('submit', submitOrder);
+        
+            // دالة للرجوع إلى الصفحة السابقة
+            function goBack() {
+            window.history.back();  // العودة إلى الصفحة السابقة
+        }
+    </script>
+</body>
+</html>
